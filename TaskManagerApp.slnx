@@ -1,0 +1,7 @@
+<Solution>
+  <Folder Name="/Çözüm Öğeleri/">
+    <File Path=".env" />
+    <File Path="docker-compose.yml" />
+  </Folder>
+  <Project Path="TaskManagerApp/TaskManagerApp.csproj" />
+</Solution>

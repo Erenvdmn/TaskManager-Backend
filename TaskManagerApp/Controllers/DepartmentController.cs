@@ -23,7 +23,7 @@ namespace TaskManagerApp.Controllers
             return await _context.Departments.Include(d => d.Users).ToListAsync();
         }
 
-        [HttpGet]
+        [HttpPost]
         public async Task<ActionResult<Department>> CreateDepartment(Department department)
         {
             _context.Departments.Add(department);

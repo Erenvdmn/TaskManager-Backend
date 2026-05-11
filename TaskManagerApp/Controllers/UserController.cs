@@ -32,5 +32,22 @@ namespace TaskManagerApp.Controllers
             await _context.SaveChangesAsync();
             return Ok(user);
         }
+
+
+        [HttpDelete("{id}")]
+        public IActionResult DeleteUser(int id)
+        {
+            var user = _context.Users
+                .Include(u => u.Tasks)
+                .FirstOrDefault(u => u.Id == id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            _context.Users.Remove(user);
+            _context.SaveChanges();
+            return Ok();
+        }
     }
 }

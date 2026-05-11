@@ -30,5 +30,22 @@ namespace TaskManagerApp.Controllers
             await _context.SaveChangesAsync();
             return Ok(department);
         }
+
+        [HttpDelete("{id}")]
+        public IActionResult DeleteDepartment(int id)
+        {
+            var department = _context.Departments
+                .Include(d => d.Users)
+                .FirstOrDefault(d => d.Id == id);
+            if (department == null)
+            {
+                return NotFound();
+            }
+
+            _context.Users.RemoveRange(department.Users);
+            _context.Departments.Remove(department);
+            _context.SaveChanges();
+            return Ok();
+        }
     }
 }

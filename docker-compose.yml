@@ -13,5 +13,28 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
+  backend:
+    build:
+      context: ./taskmanagerapp
+      dockerfile: Dockerfile
+    container_name: taskmanager_backend
+    ports:
+      - "7152:8080"
+    depends_on:
+      - db
+    environment:
+      - ConnectionStrings__DefaultConnection=Host=db;Port=5432;Database=TaskManagerDb;Username=admin;Password=${POSTGRES_PASSWORD}
+      - ASPNETCORE_ENVIRONMENT=Development
+
+  frontend:
+    build:
+      context: ./taskmanager-ui
+      dockerfile: Dockerfile
+    container_name: taskmanager_frontend
+    ports:
+      - "5173:80"
+    depends_on:
+      - backend
+
 volumes:
   postgres_data:
